@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+  
+  /* Game-specific color variables */
+  --game-dark: 15 23% 4%; /* #0F172A */
+  --game-navy: 27 32% 16%; /* #1E293B */
+  --game-slate: 29 24% 27%; /* #334155 */
+  --game-amber: 38 92% 50%; /* #F59E0B */
+  --game-gold: 45 93% 63%; /* #FCD34D */
+  --game-light: 210 17% 98%; /* #F1F5F9 */
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Game-specific utility classes */
+@layer utilities {
+  .font-crimson {
+    font-family: 'Crimson Text', serif;
+  }
+  
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+  
+  .text-game-dark {
+    color: hsl(var(--game-dark));
+  }
+  
+  .text-game-navy {
+    color: hsl(var(--game-navy));
+  }
+  
+  .text-game-slate {
+    color: hsl(var(--game-slate));
+  }
+  
+  .text-game-amber {
+    color: hsl(var(--game-amber));
+  }
+  
+  .text-game-gold {
+    color: hsl(var(--game-gold));
+  }
+  
+  .text-game-light {
+    color: hsl(var(--game-light));
+  }
+  
+  .bg-game-dark {
+    background-color: hsl(var(--game-dark));
+  }
+  
+  .bg-game-navy {
+    background-color: hsl(var(--game-navy));
+  }
+  
+  .bg-game-slate {
+    background-color: hsl(var(--game-slate));
+  }
+  
+  .bg-game-amber {
+    background-color: hsl(var(--game-amber));
+  }
+  
+  .bg-game-gold {
+    background-color: hsl(var(--game-gold));
+  }
+  
+  .bg-game-light {
+    background-color: hsl(var(--game-light));
+  }
+  
+  .border-game-slate {
+    border-color: hsl(var(--game-slate));
+  }
+  
+  .border-game-amber {
+    border-color: hsl(var(--game-amber));
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.animate-typewriter {
+  animation: typewriter 2s steps(40) 1s both;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Font imports via CDN */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=Cinzel:wght@400;600&display=swap');
+
+/* FontAwesome icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
