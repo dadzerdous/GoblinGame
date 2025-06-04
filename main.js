@@ -7,12 +7,6 @@ import {
     resetInventory
 } from './scripts/inventory.js';
 import { updateEquipmentDisplay } from './scripts/equipment.js';
-import { 
-    loadGameState, 
-    saveGameState, 
-    saveChoice, 
-    startAutoSave 
-} from './scripts/database.js';
 
 
 let xp = 0;
@@ -110,31 +104,12 @@ function showScene(key) {
             btn.style.backgroundColor = "#333";
         };
 
-        btn.onclick = async () => {
+        btn.onclick = () => {
             console.log(`🔘 Choice clicked: "${choice.text}" -> ${choice.next}`);
-            
-            // Save choice to database
-            try {
-                await saveChoice(key, choice.text);
-                console.log(`✓ Choice saved to database: ${key} -> ${choice.text}`);
-            } catch (error) {
-                console.error('Failed to save choice:', error);
-            }
-            
-            // Update current scene for saving
-            window.currentScene = choice.next;
-            
             if (choice.next === "start") {
                 resetGame();
             } else {
                 showScene(choice.next);
-            }
-            
-            // Save game state after choice
-            try {
-                await saveGameState();
-            } catch (error) {
-                console.error('Failed to save game state:', error);
             }
         };
 
@@ -237,17 +212,8 @@ function setBackground(value) {
     }
 }
 
-async function resetGame(forceReset = false) {
+function resetGame() {
     console.log("\n=== RESETTING GAME ===");
-
-    // Try to load saved game state first (unless forced reset)
-    if (!forceReset) {
-        const loaded = await loadGameState();
-        if (loaded) {
-            console.log("✓ Loaded saved game state from database");
-            return;
-        }
-    }
 
     // Reset XP and flags
     xp = 0;
@@ -276,9 +242,6 @@ async function resetGame(forceReset = false) {
         descBox.innerText = "";
         descBox.style.display = "none";
     }
-
-    // Set current scene
-    window.currentScene = "start";
 
     // Show the first scene
     showScene("start");

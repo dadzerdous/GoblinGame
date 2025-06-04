@@ -2,104 +2,16 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { URL } from 'url';
-import { storage } from './storage.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.join(__dirname, '..');
 
-const server = http.createServer(async (req, res) => {
+const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const url = new URL(req.url!, `http://${req.headers.host}`);
-
-  // Handle API routes
-  if (url.pathname.startsWith('/api/')) {
-    if (req.method === 'OPTIONS') {
-      res.writeHead(200);
-      res.end();
-      return;
-    }
-
-    try {
-      if (url.pathname === '/api/player' && req.method === 'GET') {
-        const sessionId = url.searchParams.get('sessionId');
-        if (!sessionId) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'sessionId required' }));
-          return;
-        }
-        
-        const player = await storage.getPlayer(sessionId);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(player || null));
-        return;
-      }
-
-      if (url.pathname === '/api/player' && req.method === 'POST') {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', async () => {
-          try {
-            const playerData = JSON.parse(body);
-            const player = await storage.createPlayer(playerData);
-            res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(player));
-          } catch (error) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Invalid player data' }));
-          }
-        });
-        return;
-      }
-
-      if (url.pathname === '/api/player' && req.method === 'PUT') {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', async () => {
-          try {
-            const { sessionId, ...updates } = JSON.parse(body);
-            const player = await storage.updatePlayer(sessionId, updates);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(player));
-          } catch (error) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Invalid update data' }));
-          }
-        });
-        return;
-      }
-
-      if (url.pathname === '/api/choice' && req.method === 'POST') {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', async () => {
-          try {
-            const choiceData = JSON.parse(body);
-            await storage.saveChoice(choiceData);
-            res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true }));
-          } catch (error) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Invalid choice data' }));
-          }
-        });
-        return;
-      }
-
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'API endpoint not found' }));
-    } catch (error) {
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'Internal server error' }));
-    }
-    return;
-  }
-
-  // Serve static files
-  let filePath = path.join(rootDir, url.pathname === '/' ? 'index.html' : url.pathname);
+  let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url || '');
   
   const extname = String(path.extname(filePath)).toLowerCase();
   const mimeTypes = {
@@ -132,7 +44,7 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-const PORT = parseInt(process.env.PORT || '5000');
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Goblin Adventure Game server running at http://0.0.0.0:${PORT}/`);
 });
