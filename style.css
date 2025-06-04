@@ -1,0 +1,411 @@
+body {
+  font-family: 'Georgia', serif;
+  background-image: url('https://i.postimg.cc/XYQ6xMYy/goblin-village-background-clean.png'); 
+  background-size: cover;
+  background-position: center;
+   background-repeat: no-repeat;
+  background-attachment: fixed;  
+  color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; 
+}
+
+.beetleboo {
+  font-weight: bold;
+  color: #4e2907;
+  background-color: #ffeeaa;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+ transition: box-shadow 0.3s, background-color 0.3s, transform 0.2s;
+}
+
+.beetleboo:hover {
+  background-color: #fff8cc;
+  box-shadow: 0 0 8px #ffeeaa;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+
+.choice {
+  position: relative;
+  background-color: #222;
+  color: #fff;
+  padding: 12px 20px;
+  margin: 10px 0;
+  font-size: 1rem;
+   border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.choice:hover {
+  background-color: #333;
+  border-color: #f5f55f;
+}
+
+
+#choices-panel {
+  margin-top: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+#contact-footer {
+  position: fixed;
+  bottom: 0.5rem;
+
+  font-size: 0.8rem;
+  z-index: 50;
+  background-color: transparent;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+ transition: border-color 0.2s ease, background-color 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.6); 
+}
+#contact-footer:hover {
+  border-color: #ffee88;
+  background-color: rgba(0, 0, 0, 0.75); /* Slightly stronger on hover */
+}
+.draggable {
+  position: absolute;
+  cursor: move;
+  z-index: 1000;
+}
+
+
+#drop-zone {
+  display: none;
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px dashed #ffee88;
+  border-radius: 12px;
+  z-index: 5;
+}
+
+
+
+
+
+
+.equip-button {
+    position: relative;
+  width: auto;
+  height: auto;
+  background-color: #4e2907;
+  color: red;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.equip-button:not(.draggable) {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: auto !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.equip-button.draggable {
+    position: absolute;
+  z-index: 1000;
+  outline: 2px dashed #ffee88;
+}
+
+.equip-button:hover {
+  background-color: #6b3c0f;
+  box-shadow: 0 0 6px #f5f55f;
+}
+
+.equipped-item {
+  border: 1px solid #ffee88;
+  background-color: #3d2105;
+  font-weight: bold;
+    display: inline-block;
+  min-width: 100px;
+}
+
+#equips {
+  border: 2px
+  border-color: #f5f55f;
+  margin-top: 1rem;
+  border-top: 1px solid #888;
+  padding-top: 0.5rem;
+}
+
+#equipment-container {
+  max-height: none;
+  overflow-y: visible;
+}
+
+#equipment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+#footer-link {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 1rem;
+  font-size: 0.8rem;
+  z-index: 50;
+  background-color: transparent;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+ transition: border-color 0.2s ease, background-color 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.6); 
+}
+
+#footer-link:hover {
+  border-color: #ffee88;
+  background-color: rgba(0, 0, 0, 0.75); /* Slightly stronger on hover */
+}
+
+#footer-link a,
+#contact-footer a {
+  font-size: 0.5rem;            /* smaller text */
+  padding: 1px 4px;              /* tighter padding */
+  color: #ffee88;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 1px;
+  transition: border 0.2s ease;
+    cursor: default;
+}
+
+#footer-link a:hover,
+#contact-footer a:hover {
+  border: 2px solid black;
+}
+#footer-link a:visited,
+#contact-footer a:visited {
+  color: #ffee88; /* prevent purple visited color */
+}
+
+
+#game-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 6rem 2rem 2rem; /* Top padding to make room for status bar */
+  max-width: 1200px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  color: #ffeeaa;
+}
+
+
+#hud-panel {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+
+
+#items {
+  border: 2px
+  border-color: #f5f55f;
+  margin-top: 1rem;
+  border-top: 1px solid #888;
+  padding-top: 0.5rem;
+}
+
+
+#equipment {
+  border-top: 1px solid #888;
+  top: 3.5rem;
+  left: 1rem;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  cursor: default;
+}
+
+#inventory {
+   border-top: 1px solid #888; 
+  padding: 0;
+  margin: 0;
+  top: 3.5rem; /* adjusts for status bar height */
+  right: 1rem;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  cursor: default;
+}
+
+
+
+#inventory-list,
+#equipment-list {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#inventory-list li,
+#equipment-list li {
+  display: block;
+}
+
+
+#inventory h2,
+#equipment h2 {
+  text-decoration: none;
+  border: none;
+}
+
+.item-button {
+  background-color: #4e2907;
+  color: #fff7dd;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.item-button:hover {
+  background-color: #6b3c0f;
+  box-shadow: 0 0 6px #f5f55f;
+}
+
+
+
+
+#item-tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff7cc;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  max-width: 240px;
+  font-size: 0.85rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+  pointer-events: none;
+}
+
+
+#messages {
+font-family: 'Georgia', serif;
+font-size: 1.2rem;
+font-weight: bold; 
+font-style: italic; 
+text-transform: uppercase;
+/* Styles that were inside the 'div {}' block */
+text-shadow: 2px 2px 4px #000;
+text-decoration: underline; /* Consider if this is always desired */
+display: none; /* Keep this, as JS controls visibility */
+}
+
+#name-input {
+  background-color: #222;
+  color: #ffeeaa;
+  border: 1px solid #ffee88;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-family: monospace;
+}
+
+.panel {
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #f4f4f4;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  margin-bottom: 1rem;
+}
+
+#player-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #ffeeaa;
+}
+
+
+
+#story-frame {
+  flex: 2;
+  margin-top: 7rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+#status-bar {
+  background: rgba(10, 10, 10, 0.85);
+  border: 2px solid #ffee88;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  color: #ffee88;
+  font-family: monospace;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+#story, #choices, #messages {
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+

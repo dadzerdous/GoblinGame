@@ -1,0 +1,10 @@
+{
+  "name": "goblin-game",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve"
+  },
+  "dependencies": {
+    "serve": "^14.0.1"
+  }
+}
